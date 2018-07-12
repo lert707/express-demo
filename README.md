@@ -1,5 +1,5 @@
 ## student
 a student management system
 
-## ĞèÒªµÄÒÀÀµ°ü
+## éœ€è¦ä¾èµ–çš„åŒ…
 xtpl xtemplate mongodb body-parser express captchapng
