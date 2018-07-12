@@ -7,4 +7,6 @@ const accountCTRL = require(path.join(__dirname,"../controllers/accountCtrl.js")
 
 accountRouter.get('/login',accountCTRL.getLoginPage)
 
+accountRouter.get('/vcode',accountCTRL.getVcode)
+
 module.exports = accountRouter
