@@ -1,6 +1,6 @@
-
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,14 +9,15 @@
     <script src="/js/jquery.min.js"></script>
     <title>登录页面</title>
 </head>
+
 <body>
-<div class="container" style="margin-top:180px; ">
+    <div class="container" style="margin-top:180px; ">
 
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">登录学生管理系统</div>
                 <div class="panel-body">
-                   <div class="form-horizontal">
+                    <div class="form-horizontal">
                         <div class="form-group">
                             <label for="uname" class="col-sm-2 control-label">用户名</label>
                             <div class="col-sm-10">
@@ -42,21 +43,44 @@
                             <div class="col-sm-offset-2 col-sm-10">
                                 <!-- submit有一个默认的提交行为，不要加上 -->
                                 <!-- <button type="submit" onclick="login()"  class="btn btn-default">登录</button> -->
-                                <button onclick="login()"  class="btn btn-default">登录</button>
+                                <button onclick="login()" class="btn btn-default">登录</button>
                                 &nbsp;&nbsp;
-                                <input  onclick="register();" type="button"  value="注册" class="btn btn-danger">
+                                <input onclick="register();" type="button" value="注册" class="btn btn-danger">
                             </div>
                         </div>
-                   </div>
+                    </div>
                 </div>
             </div>
-            </div>
+        </div>
     </div>
 
+    <script src="/js/md5.js"></script>
     <script>
-        $('#vcodeimg').click(function() {
-            this.src = '/account/vcode?'+Math.random()
+        $('#vcodeimg').click(function () {
+            this.src = '/account/vcode?' + Math.random()
         })
+
+        function register() {
+            window.location.href = '/account/register'
+        }
+
+        function login() {
+            const username = $('#usernameId').val()
+            const password = $.md5($('#passwordId').val() + 'lert')
+            const vcode = $('#vcodeId').val()
+
+            $.post('/account/login', { username, password, vcode }, function (backdata) {
+                console.log(backdata)
+                if (backdata.status != 0) {
+                    alert(backdata.message)
+                    $("#vcodeimgId").attr('src', "/account/vcode?random=" + Math.random())
+                } else {
+                    window.location.href = "/studentmanager/list"
+                }
+
+            })
+        }
     </script>
 </body>
+
 </html>
